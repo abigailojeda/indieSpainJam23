@@ -8,14 +8,11 @@ public class ReloadAnim : MonoBehaviour
 {
     [SerializeField]
     GameObject GunModel;
-   
 
     public void ReloadAnimation()
     {
         Sequence Reload = DOTween.Sequence();
-        if (Reload.IsPlaying() == false)
-        {
-            Reload
+        Reload
                 .Append(GunModel.transform.DOLocalMoveY(-0.065f, 0.15f, false).SetEase(Ease.InBack))
                 .Append(
                     GunModel.transform
@@ -24,11 +21,13 @@ public class ReloadAnim : MonoBehaviour
                 )
                 .Append(
                     GunModel.transform.DOLocalMoveY(-0.125f, 0.15f, false).SetEase(Ease.OutBack)
-                );
-        }
-        else
-        {
-            return;
-        }
+                )
+                .SetId("ReloadID");
+           if(!Reload.IsPlaying()){
+            DOTween.Play("ReloadID");
+           }
+            
+        
+        
     }
 }
